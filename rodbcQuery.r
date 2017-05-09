@@ -6,15 +6,4 @@ rodbcQuery <- function(driver, setupExpression, queryExpression)  {
  	tryCatch(recordSet <- sqlQuery(channel, queryExpression), error = function(e) stop(e), finally=print("Query Expression Executed"))
  	odbcClose(channel)
  	return(recordSet);
-}
-
-
-
-
-
-
-
-
-
-
-
+} 
