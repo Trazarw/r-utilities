@@ -1,2 +1,4 @@
-# r-utilities
-Basic shards of code for R
+Shards of utilities code for R
+
+- Usage of rodbcQuery.r
+
