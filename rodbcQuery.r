@@ -7,3 +7,21 @@ rodbcQuery <- function(driver, setupExpression, queryExpression)  {
  	odbcClose(channel)
  	return(recordSet);
 } 
+
+
+rodbcQuery <- function (driver, setupExpression, queryExpression)  {
+	install.packages("RODBC")
+	library(RODBC)
+	tryCatch({
+		channel <- odbcDriverConnect(driver)
+		return sqlQuery(channel, setupExpression)
+	},
+	error=function(e){
+		stop(e)
+	},
+	finally = {
+		if (exists('channel')){
+			odbcClose(channel)	
+		}
+	})
+}
