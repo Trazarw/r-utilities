@@ -1,17 +1,22 @@
 rodbcQuery <- function (driver, setupExpression, queryExpression)  {
-	install.packages("RODBC")
-	library(RODBC)
+	options(warn=-1)
+
+	tryCatch(library(RODBC), error = function(e) {
+		install.packages("RODBC")
+	})
+
 	tryCatch({
 		channel <- odbcDriverConnect(driver)
 		sqlQuery(channel, setupExpression)
 		recordSet <- sqlQuery(channel, queryExpression)
 		return(recordSet);
 	},
-	warning = function(w) print(w),
 	error 	= function(e) stop(e),
 	finally = {
 		if(exists('channel')) {
 			odbcClose(channel)
 		}
 	})
+	
+	options(warn=0)
 }
